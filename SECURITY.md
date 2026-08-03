@@ -11,15 +11,15 @@ There is no long-term-support branch yet at this stage of the project.
 
 | Version | npm | PyPI |
 | ------- | --- | ---- |
-| 0.2.x   | :white_check_mark: | :white_check_mark: |
-| < 0.2   | :x: | n/a |
+| 0.3.x   | :white_check_mark: | :white_check_mark: |
+| < 0.3   | :x: | n/a |
 
 ## Reporting a Vulnerability
 
 If you find a security vulnerability in TokenTrust, please report it privately
 rather than opening a public GitHub issue.
 
-- **Email:** security@tokentrust.dev
+- **Report privately via:** [GitHub Security Advisories](https://github.com/RudrenduPaul/TokenTrust-CLI/security/advisories/new)
 - **Response time:** we aim to acknowledge every report within **48 hours**.
 - **Disclosure:** please give us a reasonable window to investigate and ship a
   fix before any public disclosure. We will credit reporters (unless you ask

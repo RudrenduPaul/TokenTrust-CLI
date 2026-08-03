@@ -232,7 +232,7 @@ including tokbench's own published numbers.
 This port uses [`tiktoken`](https://github.com/openai/tiktoken), OpenAI's own Python tokenizer
 package, with the `cl100k_base` encoding: the same encoding the npm package's `js-tiktoken`
 dependency uses. Token counts were verified identical between the two libraries on real sample
-text before this port shipped (see [CONTRIBUTING.md](./CONTRIBUTING.md)).
+text before this port shipped (see [CONTRIBUTING.md](../CONTRIBUTING.md)).
 
 One real behavioral difference: `js-tiktoken` bundles the `cl100k_base` rank data inside the npm
 package, so the Node CLI works fully offline from its very first run. `tiktoken` downloads and
@@ -348,7 +348,7 @@ pytest
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the project layout, how to add a verification
+See [CONTRIBUTING.md](../CONTRIBUTING.md) for the project layout, how to add a verification
 category or fixture task, and the coverage bar every category change is held to.
 
 ## License
