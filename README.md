@@ -43,7 +43,7 @@ including a note on the one real behavioral difference between the two: the npm 
 `js-tiktoken` dependency bundles its tokenizer data for fully offline use, while the Python
 package's `tiktoken` dependency fetches and caches that same public data on first use.
 
-Real output from that exact command, run against the bundled 23-task corpus:
+Real output from that exact command, run against this repo's own bundled task corpus:
 
 ```
 $ npx tokentrust-cli verify --proxy rtk
@@ -53,7 +53,7 @@ Proxy: rtk 0.43.0 | Repo: TokenTrust | Task corpus: 23 labeled tasks
 
 [MEASURED] TT01 Compression Ratio
   Claimed (rtk README): up to 70% context reduction
-  Measured (this repo, this corpus): 60.7% average reduction across 23 tasks
+  Measured (this repo, this corpus): 60.6% average reduction across 23 tasks
   Range: 0.0% ("verify-go-build-filter") to 95.4% ("verify-git-log-filter")
 
 [MEASURED] TT02 Cost-Savings Delta
@@ -116,7 +116,9 @@ been captured with `git log --oneline` instead of a true raw `git log`, which un
 real compression on that task by roughly 42 percentage points. Recapturing it honestly is why
 `verify-git-log-filter` now measures 95.4%, the highest reduction in the corpus, and a real one.
 [Commit e42246c](https://github.com/RudrenduPaul/TokenTrust-CLI/commit/e42246c) has the fix --
-no measurement number ships without a fixture-run behind it.
+no measurement number ships without a fixture-run behind it. That same commit expanded the
+corpus from 15 tasks to the current 23, which is why the actual runtime output above says "23
+labeled tasks" even though one leftover help string still mentions the old count (see the FAQ).
 
 ## What it measures
 
@@ -151,6 +153,11 @@ tokentrust verify --proxy <name> [options]
 | `--format <terminal\|json>` | Report output format. Defaults to `terminal`. |
 | `-h`, `--help` | Show the help message and exit. |
 
+This table (and the `tokentrust mcp` reference below) is verified against the actual `--help`
+output of the published `tokentrust-cli@0.3.1` package, not an old copy. One known gap between
+that live `--help` text and the table above is called out directly in the FAQ, instead of
+silently repeating it.
+
 Exit code is `0` when the run completes with no gated failure, non-zero otherwise. The bundled
 GitHub Action's `--fail-on-regression` maps that straight to a failed CI step, so a version-drift
 regression breaks the build instead of shipping silently.
@@ -163,7 +170,12 @@ automatically whenever a proxy's version bumps:
   with:
     proxy: rtk
     fail-on-regression: 'true'
+    cli-version: '0.3.1'
 ```
+
+Pin `cli-version` explicitly. The Action's own default for that input is `0.1.2`, an early
+release from before TT04, TT05, and MCP support existed -- omitting `cli-version` runs that old
+version, not the one this README documents.
 
 ## Agent-native / MCP
 
@@ -265,7 +277,7 @@ is the live JSON-RPC wire once a stdio transport is connected.
 | | What it does | Ongoing / self-serve | Verifies a specific claim |
 |---|---|---|---|
 | **TokenTrust** | Runs a named proxy against a labeled task corpus, measures real compression, cost, and output-quality regression, prints claimed vs. measured | Yes, runs in your own CI, on your own repo, every time a proxy version bumps | Yes, that's the whole point |
-| [tokbench](https://github.com/Entelligentsia/tokbench) | Independent pilot benchmark of rtk and headroom on one real agentic SDLC task, with raw transcripts and a pre-registered protocol | No, a single-repo, N=1 pilot report, replication in progress | Yes, and rigorously: credit where it's due |
+| [tokbench](https://github.com/Entelligentsia/tokbench) | Independent pilot benchmark of rtk, headroom, and lean-ctx on real agentic SDLC tasks, with raw transcripts and a pre-registered protocol | No, a single-repo pilot report, replication in progress | Yes, and rigorously: credit where it's due |
 | [Langfuse](https://github.com/langfuse/langfuse), Vantage, Finout, Amnic, Revenium | LLM/AI cost observability and FinOps. Track your actual API spend across models and providers, allocate it across teams | Yes, hosted or self-hosted, ongoing | No, these track what you spent; they don't check whether a specific proxy's specific savings claim holds up |
 
 [tokbench](https://github.com/Entelligentsia/tokbench) is the closest prior art and deserves real
@@ -346,6 +358,15 @@ narrower than a first read suggests, one repository, one task, N=1 per arm, with
 progress. TokenTrust instead runs a 23-task corpus continuously, in your own CI, on your own repo,
 every time a proxy version bumps, rather than as a single published pilot report.
 
+**The `tokentrust verify --help` text on the npm package says the default task corpus has 15 tasks. Which is correct, 15 or 23?**
+23 is correct. The bundled corpus was expanded from 15 to 23 tasks in
+[commit e42246c](https://github.com/RudrenduPaul/TokenTrust-CLI/commit/e42246c), and every real
+run (both npm and PyPI) reports "Task corpus: 23 labeled tasks" at the top of its output, matching
+the actual `fixtures/tasks.yml` file. The npm package's `--tasks` flag help text is a leftover
+string from before that expansion and hasn't been updated to say 23; the PyPI package's help text
+already says 23 correctly. This affects only what the `--help` text displays, not what tasks the
+CLI actually runs.
+
 **What if `pip install tokentrust-cli` fails on my Python version?**
 The PyPI package declares `requires-python = ">=3.10"` in its `pyproject.toml`, so `pip` will
 refuse to install it on Python 3.9 or older. Upgrade to Python 3.10, 3.11, 3.12, or 3.13 (the
@@ -364,6 +385,13 @@ measures it. Nothing in your repo or the proxy's configuration is changed.
 **Can TokenTrust verify a proxy's live, provider-billed cost instead of an estimate?**
 Yes, with `--live --confirm-cost`, capped at 5 tasks by default via `--live-max-tasks`. It uses
 your own API key and never runs a real charge without printing the estimated spend first.
+
+**Is TokenTrust importable as a library, or is it CLI-only?**
+CLI-only today. Neither the npm package nor the PyPI package ships a documented, importable
+public API: the npm `package.json` lists a `main` entry that points at a file the published
+package doesn't actually contain, and the PyPI package's top-level module only exports a version
+string. Use the `tokentrust` command or the `verify_proxy_savings` MCP tool; there is no
+supported way to `import`/`require` this package's verification logic directly yet.
 
 ## Contributing
 
