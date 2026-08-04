@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tokentrust-cli"
-version = "0.3.1"
-description = "Vendor-neutral CLI that independently verifies the actual token/cost savings delivered by AI-coding-agent context-reduction proxies (rtk, headroom) against a real, labeled task corpus and a local tokenizer."
+version = "0.3.2"
+description = "Vendor-neutral CLI and MCP server that verifies the token and cost savings AI-coding-agent context-reduction proxies (rtk, headroom) actually deliver, measured against a real 23-task labeled corpus with a local tokenizer instead of the proxy's own claimed number."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
@@ -13,7 +13,7 @@ authors = [
   { name = "Rudrendu Paul" },
   { name = "Sourav Nandy" },
 ]
-keywords = ["token-reduction", "llm-cost", "benchmark", "cli", "ai-coding-agent", "verification", "tokenizer", "mcp", "model-context-protocol"]
+keywords = ["token-reduction", "llm-cost", "benchmark", "cli", "ai-coding-agent", "verification", "tokenizer", "mcp", "model-context-protocol", "context-window", "regression-testing"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
