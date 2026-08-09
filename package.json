@@ -64,5 +64,9 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.63.0",
     "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "ip-address": "^10.4.0",
+    "nanoid": "^3.3.18"
   }
 }
