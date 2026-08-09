@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/demo.gif" alt="Terminal recording of npm install -g tokentrust-cli followed by tokentrust verify --proxy rtk, printing claimed vs. measured token and cost savings for rtk 0.43.0 across the bundled 23-task corpus" width="640">
-
 # TokenTrust
 
 Vendor-neutral CLI that independently verifies the token and cost savings AI-coding-agent
@@ -12,6 +10,8 @@ task corpus instead of trusting the maintainer's own number.
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/tokentrust-cli.svg)](https://www.npmjs.com/package/tokentrust-cli)
 [![PyPI](https://img.shields.io/pypi/v/tokentrust-cli.svg)](https://pypi.org/project/tokentrust-cli/)
+
+<img src="docs/demo.gif" alt="Terminal recording of npm install -g tokentrust-cli followed by tokentrust verify --proxy rtk, printing claimed vs. measured token and cost savings for rtk 0.43.0 across the bundled 23-task corpus" width="640">
 
 </div>
 
@@ -157,6 +157,11 @@ This table (and the `tokentrust mcp` reference below) is verified against the ac
 output of the published `tokentrust-cli` package, not an old copy. One known gap between
 that live `--help` text and the table above is called out directly in the FAQ, instead of
 silently repeating it.
+
+`--format json` gives every category's claimed-vs-measured numbers as structured data, so a
+script or agent can pull the comparison straight out with `jq` instead of parsing terminal text:
+
+<img src="docs/demo-3-json-output.gif" alt="Terminal recording of tokentrust verify --proxy rtk --format json piped through jq, printing each TT category's claimed vs. measured savings percentage as structured JSON" width="640">
 
 Exit code is `0` when the run completes with no gated failure, non-zero otherwise. The bundled
 GitHub Action's `--fail-on-regression` maps that straight to a failed CI step, so a version-drift
