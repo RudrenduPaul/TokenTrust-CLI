@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tokentrust-cli"
-version = "0.3.2"
+version = "0.3.3"
 description = "Vendor-neutral CLI and MCP server that verifies the token and cost savings AI-coding-agent context-reduction proxies (rtk, headroom) actually deliver, measured against a real 23-task labeled corpus with a local tokenizer instead of the proxy's own claimed number."
 readme = "README.md"
 requires-python = ">=3.10"

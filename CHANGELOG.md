@@ -8,6 +8,17 @@ corpus, entries note which distribution they apply to.
 The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
 
+## [0.3.3] - 2026-08-08 (PyPI)
+
+Bug fix. `python/src/tokentrust/__init__.py`'s `__version__` was a
+hardcoded `"0.2.0"` string that had drifted from the real published
+version -- the live PyPI package was already 0.3.1, so
+`import tokentrust; tokentrust.__version__` reported a stale, wrong
+version to any caller. `__version__` now reads live from the installed
+package's own metadata via `importlib.metadata.version("tokentrust-cli")`.
+Also ships the previously-committed-but-never-published 0.3.2 metadata
+bump (README FAQ, demo GIFs).
+
 ## [0.3.0] - 2026-07-18
 
 ### Added

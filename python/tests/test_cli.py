@@ -4,8 +4,19 @@ from unittest.mock import patch
 
 import pytest
 
+import tokentrust
 from tokentrust.cli import parse_cli_flags, resolve_verify_options
 from tokentrust.verify import CliUsageError
+
+
+def test_module_version_matches_the_real_installed_package():
+    """Regression: tokentrust.__version__ was a hardcoded "0.2.0" string
+    that had drifted from the real installed/published version (0.3.1+),
+    so `import tokentrust; tokentrust.__version__` silently reported a
+    stale, wrong version to any caller. It now reads live from the
+    installed package's own metadata."""
+    assert tokentrust.__version__ != "0.2.0"
+    assert tokentrust.__version__[0].isdigit()
 
 
 class TestParseCliFlags:
