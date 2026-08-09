@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/demo.gif" alt="Terminal recording of npm install -g tokentrust-cli followed by tokentrust verify --proxy rtk, printing claimed vs. measured token and cost savings for rtk 0.43.0 across the bundled 23-task corpus" width="640">
-
 # TokenTrust
 
 Vendor-neutral CLI that independently verifies the token and cost savings AI-coding-agent
@@ -12,6 +10,8 @@ task corpus instead of trusting the maintainer's own number.
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/tokentrust-cli.svg)](https://www.npmjs.com/package/tokentrust-cli)
 [![PyPI](https://img.shields.io/pypi/v/tokentrust-cli.svg)](https://pypi.org/project/tokentrust-cli/)
+
+<img src="docs/demo.gif" alt="Terminal recording of npm install -g tokentrust-cli followed by tokentrust verify --proxy rtk, printing claimed vs. measured token and cost savings for rtk 0.43.0 across the bundled 23-task corpus" width="640">
 
 </div>
 
