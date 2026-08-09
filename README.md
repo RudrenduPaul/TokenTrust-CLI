@@ -158,6 +158,11 @@ output of the published `tokentrust-cli` package, not an old copy. One known gap
 that live `--help` text and the table above is called out directly in the FAQ, instead of
 silently repeating it.
 
+`--format json` gives every category's claimed-vs-measured numbers as structured data, so a
+script or agent can pull the comparison straight out with `jq` instead of parsing terminal text:
+
+<img src="docs/demo-3-json-output.gif" alt="Terminal recording of tokentrust verify --proxy rtk --format json piped through jq, printing each TT category's claimed vs. measured savings percentage as structured JSON" width="640">
+
 Exit code is `0` when the run completes with no gated failure, non-zero otherwise. The bundled
 GitHub Action's `--fail-on-regression` maps that straight to a failed CI step, so a version-drift
 regression breaks the build instead of shipping silently.
