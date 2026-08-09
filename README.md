@@ -80,7 +80,7 @@ your machine with no clone required.
 - [What it measures](#what-it-measures)
 - [Commands](#commands)
 - [Agent-native / MCP](#agent-native--mcp)
-- [Proxy support](#proxy-support-v01)
+- [Proxy support](#proxy-support)
 - [How it compares](#how-it-compares)
 - [What is TokenTrust, and why does it exist](#what-is-tokentrust-and-why-does-it-exist)
 - [Real-world validation](#real-world-validation)
@@ -268,12 +268,12 @@ have exited non-zero on the CLI -- a missing proxy binary, an invalid task corpu
 `tokentrust verify` normally prints to stdout are rerouted to stderr in MCP mode, since stdout
 is the live JSON-RPC wire once a stdio transport is connected.
 
-## Proxy support (v0.1)
+## Proxy support
 
 | Proxy | Status |
 |---|---|
 | `rtk` | Fully supported: real subprocess-based verification (`rtk pipe --filter <name>` for stdin-shaped tasks, `rtk read -l aggressive <files>` for file-based tasks). |
-| `headroom` | Recognized (`--proxy headroom` is a valid flag value), not yet supported. headroom is an HTTP proxy server, not a one-shot compression CLI, so v0.1's subprocess-based harness can't drive it. `tokentrust verify --proxy headroom` prints a message and skips it instead of failing silently. |
+| `headroom` | Recognized (`--proxy headroom` is a valid flag value), not yet supported. headroom is an HTTP proxy server, not a one-shot compression CLI, so the current subprocess-based harness can't drive it. `tokentrust verify --proxy headroom` prints a message and skips it instead of failing silently. |
 
 ## How it compares
 
