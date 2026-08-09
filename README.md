@@ -154,7 +154,7 @@ tokentrust verify --proxy <name> [options]
 | `-h`, `--help` | Show the help message and exit. |
 
 This table (and the `tokentrust mcp` reference below) is verified against the actual `--help`
-output of the published `tokentrust-cli@0.3.1` package, not an old copy. One known gap between
+output of the published `tokentrust-cli` package, not an old copy. One known gap between
 that live `--help` text and the table above is called out directly in the FAQ, instead of
 silently repeating it.
 
@@ -170,12 +170,15 @@ automatically whenever a proxy's version bumps:
   with:
     proxy: rtk
     fail-on-regression: 'true'
-    cli-version: '0.3.1'
+    cli-version: '<pin to the exact tokentrust-cli version you have verified against>'
 ```
 
-Pin `cli-version` explicitly. The Action's own default for that input is `0.1.2`, an early
-release from before TT04, TT05, and MCP support existed -- omitting `cli-version` runs that old
-version, not the one this README documents.
+Pin `cli-version` explicitly rather than relying on the Action's default. The Action deliberately
+does not support `latest` for this input: pinning is a supply-chain safeguard, so a compromised
+npm publish can't reach every workflow using this Action on its very next run without a
+deliberate version bump on your part. The Action's own default for this input is an early
+pre-TT04/TT05/MCP release -- omitting `cli-version` runs that old version, not the one this
+README documents.
 
 ## Agent-native / MCP
 
