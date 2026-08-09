@@ -2,14 +2,16 @@
 
 # TokenTrust
 
-Vendor-neutral CLI that independently verifies the token and cost savings AI-coding-agent
-context-reduction proxies actually deliver, by running the proxy for real against a labeled
-task corpus instead of trusting the maintainer's own number.
-
 [![CI](https://github.com/RudrenduPaul/TokenTrust-CLI/actions/workflows/ci.yml/badge.svg)](https://github.com/RudrenduPaul/TokenTrust-CLI/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/tokentrust-cli.svg)](https://www.npmjs.com/package/tokentrust-cli)
 [![PyPI](https://img.shields.io/pypi/v/tokentrust-cli.svg)](https://pypi.org/project/tokentrust-cli/)
+
+[Install](#install) • [What it measures](#what-it-measures) • [Commands](#commands) • [Agent-native / MCP](#agent-native--mcp) • [FAQ](#faq)
+
+Vendor-neutral CLI that independently verifies the token and cost savings AI-coding-agent
+context-reduction proxies actually deliver, by running the proxy for real against a labeled
+task corpus instead of trusting the maintainer's own number.
 
 <img src="docs/demo.gif" alt="Terminal recording of npm install -g tokentrust-cli followed by tokentrust verify --proxy rtk, printing claimed vs. measured token and cost savings for rtk 0.43.0 across the bundled 23-task corpus" width="640">
 
@@ -73,52 +75,6 @@ Summary: 77.0% measured cost savings (claimed: up to 70%) -- see full report
 That's a real run's output, not a hand-typed example -- `npx tokentrust-cli` invokes the exact
 same `dist/cli.js` entry point (the `tokentrust` command name is unchanged), so it reproduces on
 your machine with no clone required.
-
-## Table of contents
-
-- [Why this exists](#why-this-exists)
-- [What it measures](#what-it-measures)
-- [Commands](#commands)
-- [Agent-native / MCP](#agent-native--mcp)
-- [Proxy support](#proxy-support)
-- [How it compares](#how-it-compares)
-- [What is TokenTrust, and why does it exist](#what-is-tokentrust-and-why-does-it-exist)
-- [Real-world validation](#real-world-validation)
-- [Python package](#python-package)
-- [FAQ](#faq)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Why this exists
-
-Context-reduction proxies (`rtk`, `headroom`, and others) publish compression and
-cost-savings numbers in their own READMEs. Those numbers come from the maintainer's own
-benchmark, on the maintainer's own workload, with nobody outside the project checking the math.
-That's not an accusation. It's just how every proxy in this space currently reports its own
-numbers, and a maintainer benchmarking their own tool isn't running an adversarial test.
-
-The gap shows up in the proxies' own issue trackers:
-
-- [`rtk#839`](https://github.com/rtk-ai/rtk/issues/839), an open, 5-repo, 2,100-measurement
-  empirical benchmark thread asking how rtk's actual savings compare to what it claims.
-- [`rtk#1935`](https://github.com/rtk-ai/rtk/issues/1935), "rtk gain hallucinates massive
-  token usage and savings" (open).
-- [`rtk#582`](https://github.com/rtk-ai/rtk/issues/582), "RTK Hook Increases Claude Code Costs
-  by 18%," a cost regression a maintainer's own test suite didn't catch on its own. TT05 exists
-  specifically to catch this class of regression before a user does.
-
-TokenTrust doesn't compete with these proxies. It verifies them. It has no stake in whether a
-proxy's claimed number holds up, and every category run prints the claimed number right next to
-the measured one, so the comparison is never hidden or averaged away.
-
-We also found and fixed a bug in our own measurement: one fixture's baseline had accidentally
-been captured with `git log --oneline` instead of a true raw `git log`, which understated rtk's
-real compression on that task by roughly 42 percentage points. Recapturing it honestly is why
-`verify-git-log-filter` now measures 95.4%, the highest reduction in the corpus, and a real one.
-[Commit e42246c](https://github.com/RudrenduPaul/TokenTrust-CLI/commit/e42246c) has the fix --
-no measurement number ships without a fixture-run behind it. That same commit expanded the
-corpus from 15 tasks to the current 23, which is why the actual runtime output above says "23
-labeled tasks" even though one leftover help string still mentions the old count (see the FAQ).
 
 ## What it measures
 
@@ -297,6 +253,37 @@ genuinely compressing 342K tokens on the wire), because the agent's turn count g
 per-turn payload shrank. That's a real, independently useful data point, and it's exactly the
 kind of gap between "compressed" and "cheaper" TokenTrust exists to keep catching, continuously,
 in your own repo rather than a single published pilot.
+
+## Why this exists
+
+Context-reduction proxies (`rtk`, `headroom`, and others) publish compression and
+cost-savings numbers in their own READMEs. Those numbers come from the maintainer's own
+benchmark, on the maintainer's own workload, with nobody outside the project checking the math.
+That's not an accusation. It's just how every proxy in this space currently reports its own
+numbers, and a maintainer benchmarking their own tool isn't running an adversarial test.
+
+The gap shows up in the proxies' own issue trackers:
+
+- [`rtk#839`](https://github.com/rtk-ai/rtk/issues/839), an open, 5-repo, 2,100-measurement
+  empirical benchmark thread asking how rtk's actual savings compare to what it claims.
+- [`rtk#1935`](https://github.com/rtk-ai/rtk/issues/1935), "rtk gain hallucinates massive
+  token usage and savings" (open).
+- [`rtk#582`](https://github.com/rtk-ai/rtk/issues/582), "RTK Hook Increases Claude Code Costs
+  by 18%," a cost regression a maintainer's own test suite didn't catch on its own. TT05 exists
+  specifically to catch this class of regression before a user does.
+
+TokenTrust doesn't compete with these proxies. It verifies them. It has no stake in whether a
+proxy's claimed number holds up, and every category run prints the claimed number right next to
+the measured one, so the comparison is never hidden or averaged away.
+
+We also found and fixed a bug in our own measurement: one fixture's baseline had accidentally
+been captured with `git log --oneline` instead of a true raw `git log`, which understated rtk's
+real compression on that task by roughly 42 percentage points. Recapturing it honestly is why
+`verify-git-log-filter` now measures 95.4%, the highest reduction in the corpus, and a real one.
+[Commit e42246c](https://github.com/RudrenduPaul/TokenTrust-CLI/commit/e42246c) has the fix --
+no measurement number ships without a fixture-run behind it. That same commit expanded the
+corpus from 15 tasks to the current 23, which is why the actual runtime output above says "23
+labeled tasks" even though one leftover help string still mentions the old count (see the FAQ).
 
 ## What is TokenTrust, and why does it exist
 
