@@ -45,7 +45,10 @@
     "typescript",
     "regression-testing"
   ],
-  "author": "",
+  "author": "Rudrendu Paul",
+  "contributors": [
+    "Sourav Nandy"
+  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/RudrenduPaul/TokenTrust-CLI/issues"
