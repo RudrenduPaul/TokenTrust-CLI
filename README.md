@@ -2,6 +2,8 @@
 
 # TokenTrust
 
+<!-- mcp-name: io.github.RudrenduPaul/tokentrust -->
+
 [![CI](https://github.com/RudrenduPaul/TokenTrust-CLI/actions/workflows/ci.yml/badge.svg)](https://github.com/RudrenduPaul/TokenTrust-CLI/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/tokentrust-cli.svg)](https://www.npmjs.com/package/tokentrust-cli)

@@ -1,5 +1,7 @@
 # tokentrust-cli (Python)
 
+<!-- mcp-name: io.github.RudrenduPaul/tokentrust -->
+
 Vendor-neutral CLI that independently verifies the token and cost savings AI-coding-agent
 context-reduction proxies actually deliver, by running the proxy for real against a labeled
 task corpus instead of trusting the maintainer's own number.
