@@ -22,7 +22,7 @@ inputs:
     default: '.'
   tasks:
     description: >-
-      Path to a tokentrust-tasks.yml corpus. Defaults to the bundled 12-task
+      Path to a tokentrust-tasks.yml corpus. Defaults to the bundled 23-task
       corpus shipped with TokenTrust when omitted.
     required: false
     default: ''
@@ -43,7 +43,7 @@ inputs:
       this Action on its very next run, with no Action-tag/version bump
       required to trigger it. Bump this deliberately alongside new releases.
     required: false
-    default: '0.1.2'
+    default: '0.3.5'
 
 outputs:
   report-path:

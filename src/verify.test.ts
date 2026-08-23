@@ -50,7 +50,7 @@ describe('runVerify', () => {
     };
   }
 
-  describe('cold-start: bundled default 15-task corpus with zero extra flags (E2E)', () => {
+  describe('cold-start: bundled default 23-task corpus with zero extra flags (E2E)', () => {
     it('produces a full report and prints the champion-tier terminal summary', async () => {
       const outcome = await runVerify(baseOptions(), baseDeps());
 
@@ -151,7 +151,7 @@ describe('runVerify', () => {
 
     it('--live --confirm-cost but task count exceeds --live-max-tasks: exits 1, makes ZERO API calls', async () => {
       const liveApiClient = vi.fn();
-      // Bundled corpus has 15 tasks; cap of 5 forces the over-cap refusal path.
+      // Bundled corpus has 23 tasks; cap of 5 forces the over-cap refusal path.
       const outcome = await runVerify(
         baseOptions({ live: true, confirmCost: true, liveMaxTasks: 5 }),
         baseDeps({ liveApiClient, env: { [LIVE_API_KEY_ENV_VAR]: 'sk-should-not-be-used' } }),
