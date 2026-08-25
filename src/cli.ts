@@ -78,7 +78,7 @@ export function printVerifyUsage(print: (line: string) => void = (line) => conso
       'Flags:',
       '  --proxy <name>            Proxy to verify (repeatable). Supported: rtk, headroom. Required.',
       '  --repo <path>             Repo to measure against (default: current directory)',
-      '  --tasks <file>            Task corpus YAML file (default: bundled 15-task corpus)',
+      '  --tasks <file>            Task corpus YAML file (default: bundled 23-task corpus)',
       '  --live                    Sample real provider-billed tokens for the first proxy (requires --confirm-cost)',
       '  --confirm-cost            Confirm the estimated spend --live prints before any API call is made',
       '  --live-max-tasks <n>      Max tasks sampled in --live mode (default: 5)',
