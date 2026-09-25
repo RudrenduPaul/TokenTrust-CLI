@@ -16,11 +16,11 @@ jobs:
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Ensure npm >= 11.5.1 (required for npm OIDC trusted publishing)
+      - name: Ensure npm >= 11.5.1 (required for npm Trusted Publishing)
         run: npm install -g npm@latest
 
       - name: Install dependencies
@@ -41,12 +41,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Once this repo+workflow is registered as a trusted publisher on npmjs.com,
-      # npm (>=11.5.1, Node >=22.14.0) auto-detects the GitHub Actions OIDC context
-      # from the id-token: write permission above and authenticates via OIDC,
-      # taking priority over NODE_AUTH_TOKEN. NPM_TOKEN is kept as a fallback below
-      # in case trusted-publisher registration is not yet completed or is misconfigured.
+      # Authenticates through GitHub Actions OIDC (npm Trusted Publishing).
+      # No token is used. Register this repo and workflow file as a trusted
+      # publisher for tokentrust-cli on npmjs.com.
       - name: Publish to npm
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

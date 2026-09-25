@@ -8,6 +8,22 @@ corpus, entries note which distribution they apply to.
 The format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 2026-09-24
+
+### Changed
+
+- **Dependency upgrades (npm)**: `@modelcontextprotocol/sdk` ^1.29.0 to
+  ^1.30.1, `yaml` ^2.9.0 to ^2.9.1, `zod` ^4.4.3 to ^4.6.5. Dev tooling moved
+  to TypeScript 6 and `typescript-eslint` 8.70.
+- **Security fix (Python)**: the live-mode error message no longer
+  interpolates a credential-named constant.
+- **Publishing**: npm releases now publish through npm Trusted Publishing
+  (GitHub Actions OIDC) from `.github/workflows/publish.yml`. The `NPM_TOKEN`
+  fallback is removed.
+- npm and PyPI versions are aligned at 0.4.0. The GitHub Action's default
+  `cli-version` is updated to 0.4.0. Support floors are unchanged (Node 18+
+  declared, Python 3.10+).
+
 ## [0.3.3] - 2026-08-08 (PyPI)
 
 Bug fix. `python/src/tokentrust/__init__.py`'s `__version__` was a

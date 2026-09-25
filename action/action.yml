@@ -43,7 +43,7 @@ inputs:
       this Action on its very next run, with no Action-tag/version bump
       required to trigger it. Bump this deliberately alongside new releases.
     required: false
-    default: '0.3.5'
+    default: '0.4.0'
 
 outputs:
   report-path:
