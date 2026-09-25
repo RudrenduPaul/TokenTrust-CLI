@@ -120,6 +120,12 @@ def test_live_confirmed_but_missing_api_key_exits_1(tmp_repo):
     assert any(LIVE_API_KEY_ENV_VAR in line for line in lines)
 
 
+def test_missing_live_key_message_names_the_configured_env_var():
+    from tokentrust.verify import MISSING_LIVE_KEY_MESSAGE
+
+    assert LIVE_API_KEY_ENV_VAR in MISSING_LIVE_KEY_MESSAGE
+
+
 def test_multi_proxy_flag_with_headroom_still_only_verifies_rtk(tmp_repo):
     """
     `--proxy rtk --proxy headroom` is real, documented CLI usage (TT04's

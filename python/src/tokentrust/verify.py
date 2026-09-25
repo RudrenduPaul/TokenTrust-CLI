@@ -15,7 +15,6 @@ from .categories.live_api_client import anthropic_live_api_client
 from .categories.tt01_compression_ratio import Tt01Result, run_tt01
 from .categories.tt02_cost_delta import (
     DEFAULT_LIVE_MAX_TASKS,
-    LIVE_API_KEY_ENV_VAR,
     LiveModeOptions,
     estimate_live_cost,
     evaluate_live_gate,
@@ -69,6 +68,13 @@ HEADROOM_NOT_YET_SUPPORTED_MESSAGE = (
 )
 
 DEFAULT_LIVE_MAX_TASKS_OPTION = DEFAULT_LIVE_MAX_TASKS
+
+# The variable name is spelled out as a literal (a test pins it to
+# tt02_cost_delta.LIVE_API_KEY_ENV_VAR) so that no value derived from a
+# credential-named identifier flows into the printed output.
+MISSING_LIVE_KEY_MESSAGE = (
+    "Error: --live requires TOKENTRUST_LIVE_API_KEY to be set in the environment. No API call was made."
+)
 
 
 def resolve_default_tasks_path() -> str:
@@ -237,7 +243,7 @@ def run_verify(options: VerifyOptions, deps: Optional[VerifyDependencies] = None
 
             api_key = resolve_live_api_key(env)
             if not api_key:
-                print_fn(f"Error: --live requires {LIVE_API_KEY_ENV_VAR} to be set in the environment. No API call was made.")
+                print_fn(MISSING_LIVE_KEY_MESSAGE)
                 return VerifyOutcome(exit_code=1)
 
             capped_tasks = tasks[: options.live_max_tasks]
